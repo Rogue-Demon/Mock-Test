@@ -49,7 +49,7 @@ app.get("/events", async (req, res) => {
 app.post("/events", async (req, res) => {
     try {
         const { title, venue, date, time, totalSeats } = req.body;
-        if (!title || !venue || !date || !time || !Number.isInteger(totalSeats) || totalSeats < 1) {
+        if (!title || !venue || !date || !Number.isInteger(totalSeats) || totalSeats < 1) {
             return res.status(400).json({ msg: "Please provide all required fields" })
         }
 

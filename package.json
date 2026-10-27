@@ -1,0 +1,10 @@
+{
+  "name": "mock-test",
+  "private": true,
+  "workspaces": [
+    "backend"
+  ],
+  "scripts": {
+    "start": "npm --workspace backend start"
+  }
+}
