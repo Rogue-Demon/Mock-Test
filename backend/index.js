@@ -53,10 +53,15 @@ app.post("/events", async (req, res) => {
             return res.status(400).json({ msg: "Please provide all required fields" })
         }
 
-        const result = await pool.query(
-            'INSERT INTO events (title, venue, date, "time", totalSeats) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-            [title, venue, date, time, totalSeats]
-        );
+        const result = time
+            ? await pool.query(
+                'INSERT INTO events (title, venue, date, "time", totalSeats) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+                [title, venue, date, time, totalSeats]
+            )
+            : await pool.query(
+                'INSERT INTO events (title, venue, date, totalSeats) VALUES ($1, $2, $3, $4) RETURNING *',
+                [title, venue, date, totalSeats]
+            );
         res.status(201).json({ success: true, msg: "Event created successfully", data: result.rows[0] })
     } catch (err) {
         console.error(err);
